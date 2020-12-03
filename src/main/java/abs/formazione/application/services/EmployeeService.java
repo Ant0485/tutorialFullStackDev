@@ -1,8 +1,7 @@
-package abs.formazione.demorestcrud.services;
+package abs.formazione.application.services;
 
-import abs.formazione.demorestcrud.entity.Employee;
-import abs.formazione.demorestcrud.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import abs.formazione.application.entity.Employee;
+import abs.formazione.application.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.logging.Logger;
 public class EmployeeService {
     private static final Logger LOGGER = Logger.getLogger(EmployeeService.class.getName());
 
-    @Autowired
     private EmployeeRepository repository;
 
     public List<Employee> getEmployeesDefault() {

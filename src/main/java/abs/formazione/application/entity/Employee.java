@@ -1,4 +1,4 @@
-package abs.formazione.demorestcrud.entity;
+package abs.formazione.application.entity;
 
 import lombok.*;
 import org.springframework.context.annotation.Primary;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "employee")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
