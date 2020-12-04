@@ -1,7 +1,7 @@
-package abs.formazione.application.services;
+package abs.formazione.demorestcrud.services;
 
-import abs.formazione.application.entity.Employee;
-import abs.formazione.application.repository.EmployeeRepository;
+import abs.formazione.demorestcrud.entity.Employee;
+import abs.formazione.demorestcrud.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

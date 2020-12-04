@@ -1,4 +1,4 @@
-package abs.formazione.application.entity;
+package abs.formazione.demorestcrud.entity;
 
 import lombok.*;
 import org.springframework.context.annotation.Primary;

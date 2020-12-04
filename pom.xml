@@ -15,6 +15,8 @@
 	<description>Demo project for Spring Boot Rest</description>
 
 	<properties>
+		<mainClassPackage>abs.formazione.application</mainClassPackage>
+		<mainClass>${mainClassPackage}.demorestcrud.DemoRestCrudApplication</mainClass>
 		<java.version>11</java.version>
 	</properties>
 
@@ -48,10 +50,9 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>

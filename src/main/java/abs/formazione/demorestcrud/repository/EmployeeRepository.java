@@ -1,6 +1,6 @@
-package abs.formazione.application.repository;
+package abs.formazione.demorestcrud.repository;
 
-import abs.formazione.application.entity.Employee;
+import abs.formazione.demorestcrud.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
