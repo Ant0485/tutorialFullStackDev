@@ -15,8 +15,6 @@
 	<description>Demo project for Spring Boot Rest</description>
 
 	<properties>
-		<mainClassPackage>abs.formazione.application</mainClassPackage>
-		<mainClass>${mainClassPackage}.demorestcrud.DemoRestCrudApplication</mainClass>
 		<java.version>11</java.version>
 	</properties>
 
@@ -24,12 +22,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>com.zaxxer</groupId>
-					<artifactId>HikariCP</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -3,6 +3,7 @@ package abs.formazione.demorestcrud.api;
 import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +19,14 @@ public class EmployeeApiController {
 
     private static final Logger LOGGER = Logger.getLogger(EmployeeApiController.class.getName());
 
-    public EmployeeApiController(){
-    }
-
-    @Resource
+    @Autowired
     private EmployeeService service;
+
+    @GetMapping("/")
+    public String greetings(){
+        LOGGER.info("Greetings in home");
+        return service.greetings();
+    }
 
     @GetMapping("/getAll")
     public List<Employee> getAll() {
