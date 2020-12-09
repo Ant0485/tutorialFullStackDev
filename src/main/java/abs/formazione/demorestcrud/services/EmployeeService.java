@@ -61,4 +61,17 @@ public class EmployeeService {
         }
         return success;
     }
+
+    //PUT calls
+    public Employee updateEmployeeById(Integer id, Employee new_employee){
+        LOGGER.info("updateEmployeeByIdCalled");
+        Employee upd_employee;
+        //should replace also the id? Cam't equal because the JSON sent does not contain id
+        if (repository.existsById(id) && new_employee.getId() == id){
+            upd_employee = repository.save(new_employee);
+        } else {
+            upd_employee = null;
+        }
+        return upd_employee;
+    }
 }

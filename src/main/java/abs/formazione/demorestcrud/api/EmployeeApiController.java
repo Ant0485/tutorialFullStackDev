@@ -77,4 +77,19 @@ public class EmployeeApiController {
                                         HttpStatus.BAD_REQUEST);
         }
     }
+
+    //PUT APIs
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployeeById(
+            @PathVariable Integer id, @RequestBody Employee new_employee){
+        LOGGER.info("updateEmployee in API");
+        Employee updt_employee = service.updateEmployeeById(id, new_employee);
+        if (updt_employee != null) {
+            return new ResponseEntity<Employee>(updt_employee, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Employee>(HttpStatus.BAD_REQUEST);
+    }
+    }
+
+
 }
