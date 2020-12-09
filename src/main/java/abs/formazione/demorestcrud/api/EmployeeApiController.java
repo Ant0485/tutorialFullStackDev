@@ -4,6 +4,7 @@ import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,5 +41,17 @@ public class EmployeeApiController {
     public List<Employee> getEmployeeByName(@PathVariable String name){
         LOGGER.info("getByName in API");
         return service.getEmployeeByName(name);
+    }
+
+    @GetMapping("/getBySurname/{name}")
+    public List<Employee> getEmployeeByLastName(@PathVariable String lastName){
+        LOGGER.info("getByLastName in API");
+        return service.getEmployeeByLastName(lastName);
+    }
+
+    @PostMapping(value = "/insertNewEmployee", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Employee postNewEmployee(@RequestBody Employee employee){
+        LOGGER.info("info nome: " + employee.getFirstName() + " cognome: " + employee.getLastName() + " email: " + employee.getEmail());
+        return service.postNewEmployee(employee);
     }
 }

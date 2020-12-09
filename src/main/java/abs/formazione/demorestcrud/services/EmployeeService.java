@@ -32,4 +32,15 @@ public class EmployeeService {
         LOGGER.info("getEmployeesByNameCalled");
         return repository.findByFirstName(name);
     }
+
+    public List<Employee> getEmployeeByLastName(String lastName){
+        LOGGER.info("getEmployeesByNameCalled");
+        return repository.findByLastName(lastName);
+    }
+
+    //POST calls
+    public Employee postNewEmployee(Employee employee){
+        LOGGER.info("postNewEmployeeCalled");
+        return repository.save(employee);
+    }
 }

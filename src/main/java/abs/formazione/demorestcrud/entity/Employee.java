@@ -20,12 +20,12 @@ public class Employee {
     @Setter
     public Integer id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     @Getter
     @Setter
     public String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     @Getter
     @Setter
     public String lastName;

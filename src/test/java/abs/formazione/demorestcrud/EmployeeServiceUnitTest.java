@@ -50,6 +50,12 @@ public class EmployeeServiceUnitTest {
         assertEquals(employeeService.getEmployeeByName("Paolo").get(0), fake_list.get(0));
     }
 
+    @Test
+    void postNewEmployee() {
+        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        when(repository.save(new_employee)).thenReturn(new_employee);
+        assertEquals(employeeService.postNewEmployee(new_employee), new_employee);
+    }
 
 
 
