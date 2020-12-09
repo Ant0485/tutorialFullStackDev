@@ -6,6 +6,7 @@ import abs.formazione.demorestcrud.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -22,8 +23,12 @@ public class EmployeeApiController {
     @Autowired
     private EmployeeService service;
 
+    public EmployeeApiController(EmployeeService service) {
+        this.service = service;
+    }
+
     @GetMapping("/")
-    public String greetings(){
+    public @ResponseBody String greetings(){
         LOGGER.info("Greetings in home");
         return service.greetings();
     }
