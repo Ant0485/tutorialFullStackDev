@@ -3,6 +3,7 @@ package abs.formazione.demorestcrud;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,6 +68,21 @@ public class WebMockTest {
                 content(objectMapper.writeValueAsString(new_employee))).
                 andExpect(status().isOk()).
                 andExpect(content().json(objectMapper.writeValueAsString(new_employee)));
+    }
+
+    @Test
+    public void checkDeleteEmployeeById() throws Exception{
+        Integer test_id = 42;
+        Integer wrong_test_id = 43;
+        when(employeeService.deleteEmployeeById(42)).thenReturn(true);
+        this.mockMvc.perform(delete("/api/employee/" + test_id.toString())).
+                andExpect(status().isOk()).
+                andExpect(content().string("Employee record deleted correctly.\n"));
+
+        when(employeeService.deleteEmployeeById(43)).thenReturn(false);
+        this.mockMvc.perform(delete("/api/employee/" + wrong_test_id.toString())).
+                andExpect(status().isBadRequest()).
+                andExpect(content().string("The select id does not exist in the database.\n"));
     }
 
 

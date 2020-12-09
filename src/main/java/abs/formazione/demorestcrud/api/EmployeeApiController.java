@@ -4,7 +4,9 @@ import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,9 +29,9 @@ public class EmployeeApiController {
     }
 
     @GetMapping("/")
-    public @ResponseBody String greetings(){
+    public ResponseEntity<String> greetings(){
         LOGGER.info("Greetings in home");
-        return service.greetings();
+        return new ResponseEntity<>(service.greetings(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -63,5 +65,16 @@ public class EmployeeApiController {
         return service.postNewEmployee(employee);
     }
 
-
+    //DELETE APIs
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Integer id){
+        LOGGER.info("deleteEmployee in API");
+        if (service.deleteEmployeeById(id)){
+            return new ResponseEntity<>("Employee record deleted correctly.\n",
+                                        HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("The select id does not exist in the database.\n",
+                                        HttpStatus.BAD_REQUEST);
+        }
+    }
 }

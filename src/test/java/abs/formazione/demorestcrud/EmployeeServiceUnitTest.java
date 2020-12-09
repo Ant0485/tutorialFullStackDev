@@ -57,6 +57,14 @@ public class EmployeeServiceUnitTest {
         assertEquals(employeeService.postNewEmployee(new_employee), new_employee);
     }
 
+    @Test
+    void deleteEmployeeById() {
+        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        when(repository.existsById(42)).thenReturn(true);
+        assertEquals(employeeService.deleteEmployeeById(42), true);
 
+        when(repository.existsById(43)).thenReturn(false);
+        assertEquals(employeeService.deleteEmployeeById(43), false);
+    }
 
 }

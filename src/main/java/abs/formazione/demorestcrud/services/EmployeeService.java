@@ -49,4 +49,16 @@ public class EmployeeService {
         LOGGER.info("postNewEmployeeCalled");
         return repository.save(employee);
     }
+
+    //DELETE calls
+    public Boolean deleteEmployeeById(Integer id){
+        LOGGER.info("deleteEmployeeByIdCalled");
+        Boolean success = true;
+        if (repository.existsById(id)){
+            repository.deleteById(id);
+        } else {
+            success = false;
+        }
+        return success;
+    }
 }
