@@ -15,6 +15,10 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repository;
 
+    public EmployeeService(EmployeeRepository repository){
+        this.repository = repository;
+    }
+
     public String greetings() {
         return "Hello there!";
     }
@@ -22,5 +26,10 @@ public class EmployeeService {
     public List<Employee> getEmployeesDefault() {
         LOGGER.info("getEmployeesDefaultCalled");
         return repository.findAll();
+    }
+
+    public List<Employee> getEmployeeByName(String name){
+        LOGGER.info("getEmployeesByNameCalled");
+        return repository.findByFirstName(name);
     }
 }

@@ -34,5 +34,4 @@ public class Employee {
     @Getter
     @Setter
     public String email;
-
 }

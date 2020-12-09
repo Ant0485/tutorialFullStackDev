@@ -4,10 +4,7 @@ import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,5 +34,11 @@ public class EmployeeApiController {
     public List<Employee> getAll() {
         LOGGER.info("getAll in API");
         return service.getEmployeesDefault();
+    }
+
+    @GetMapping("/getByName/{name}")
+    public List<Employee> getEmployeeByName(@PathVariable String name){
+        LOGGER.info("getByName in API");
+        return service.getEmployeeByName(name);
     }
 }
