@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 
@@ -31,6 +32,12 @@ public class EmployeeApiController {
         return service.greetings();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Employee> getEmployeeById(@PathVariable Integer id){
+        LOGGER.info("getEmployeeById in API");
+        return service.getEmployeeById(id);
+    }
+
     @GetMapping("/getAll")
     public List<Employee> getAll() {
         LOGGER.info("getAll in API");
@@ -49,9 +56,12 @@ public class EmployeeApiController {
         return service.getEmployeeByLastName(lastName);
     }
 
+    //POST APIs
     @PostMapping(value = "/insertNewEmployee", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Employee postNewEmployee(@RequestBody Employee employee){
         LOGGER.info("info nome: " + employee.getFirstName() + " cognome: " + employee.getLastName() + " email: " + employee.getEmail());
         return service.postNewEmployee(employee);
     }
+
+
 }

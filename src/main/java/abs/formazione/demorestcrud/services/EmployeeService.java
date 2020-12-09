@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -26,6 +27,11 @@ public class EmployeeService {
     public List<Employee> getEmployeesDefault() {
         LOGGER.info("getEmployeesDefaultCalled");
         return repository.findAll();
+    }
+
+    public Optional<Employee> getEmployeeById(Integer id){
+        LOGGER.info("getEmployeeByIdCalled");
+        return repository.findById(id);
     }
 
     public List<Employee> getEmployeeByName(String name){

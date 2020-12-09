@@ -45,6 +45,20 @@ public class WebMockTest {
     }
 
     @Test
+    public void checkSearchById() throws Exception {
+        Integer test_id = 42;
+        Integer wrong_test_id = 43;
+        Employee test_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        when(employeeService.getEmployeeById(test_id)).thenReturn(java.util.Optional.of(test_employee));
+        this.mockMvc.perform(get("/api/employee/" + test_id.toString())).andDo(print()).andExpect(status().isOk()).
+                andExpect(content().json(objectMapper.writeValueAsString(test_employee)));
+
+        when(employeeService.getEmployeeById(test_id)).thenReturn(null);
+        this.mockMvc.perform(get("/api/employee/" + test_id.toString())).andDo(print()).andExpect(status().isOk()).
+                andExpect(content().string(""));
+    }
+
+    @Test
     public void checkReturnOnPostEmployee() throws Exception {
         Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
         when(employeeService.postNewEmployee(new_employee)).thenReturn(new_employee);
