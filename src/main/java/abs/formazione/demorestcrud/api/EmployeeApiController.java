@@ -83,9 +83,9 @@ public class EmployeeApiController {
     public ResponseEntity<Employee> updateEmployeeById(
             @PathVariable Integer id, @RequestBody Employee new_employee){
         LOGGER.info("updateEmployee in API");
-        Employee updt_employee = service.updateEmployeeById(id, new_employee);
-        if (updt_employee != null) {
-            return new ResponseEntity<Employee>(updt_employee, HttpStatus.OK);
+        Employee upd_employee = service.updateEmployeeById(id, new_employee);
+        if (upd_employee != null) {
+            return new ResponseEntity<Employee>(upd_employee, HttpStatus.OK);
         } else {
             return new ResponseEntity<Employee>(HttpStatus.BAD_REQUEST);
     }

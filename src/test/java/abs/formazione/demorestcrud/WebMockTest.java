@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -85,5 +86,20 @@ public class WebMockTest {
                 andExpect(content().string("The select id does not exist in the database.\n"));
     }
 
+    @Test
+    public void checkUpdateEmployeeById() throws Exception{
+        Integer test_id = 42;
+        Integer wrong_test_id = 43;
+        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "nuovaemail34@gmail.com");
+        when(employeeService.updateEmployeeById(test_id, upd_employee)).thenReturn(upd_employee);
+        this.mockMvc.perform(put("/api/employee/" + test_id.toString())).
+                andExpect(status().isOk()).
+                andExpect(content().json(objectMapper.writeValueAsString(upd_employee)));
+
+        when(employeeService.updateEmployeeById(wrong_test_id, upd_employee)).thenReturn(null);
+        this.mockMvc.perform(put("/api/employee/" + wrong_test_id.toString())).
+                andExpect(status().isBadRequest()).
+                andExpect(content().string(""));
+    }
 
 }

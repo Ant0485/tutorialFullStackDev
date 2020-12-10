@@ -67,4 +67,18 @@ public class EmployeeServiceUnitTest {
         assertEquals(employeeService.deleteEmployeeById(43), false);
     }
 
+    @Test
+    void updateEmployeeById() {
+        Employee upd_employee = new Employee(42, "Sergio", "Rossi", "emailnuova34@gmail.com");
+        when(repository.existsById(42)).thenReturn(true);
+        when(repository.save(upd_employee)).thenReturn(upd_employee);
+        assertEquals(employeeService.updateEmployeeById(42, upd_employee), upd_employee);
+
+        when(repository.existsById(42)).thenReturn(false);
+        assertEquals(employeeService.updateEmployeeById(42, upd_employee), null);
+
+        when(repository.existsById(42)).thenReturn(true);
+        assertEquals(employeeService.updateEmployeeById(43, upd_employee), null);
+    }
+
 }

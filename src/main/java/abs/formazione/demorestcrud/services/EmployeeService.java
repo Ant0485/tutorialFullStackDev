@@ -66,7 +66,7 @@ public class EmployeeService {
     public Employee updateEmployeeById(Integer id, Employee new_employee){
         LOGGER.info("updateEmployeeByIdCalled");
         Employee upd_employee;
-        //should replace also the id? Cam't equal because the JSON sent does not contain id
+        //should replace also the id? Should we expect the id or not?
         if (repository.existsById(id) && new_employee.getId() == id){
             upd_employee = repository.save(new_employee);
         } else {
