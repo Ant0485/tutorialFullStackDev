@@ -1,6 +1,7 @@
 package abs.formazione.demorestcrud;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -14,6 +15,7 @@ import abs.formazione.demorestcrud.api.EmployeeApiController;
 import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.services.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -42,7 +44,7 @@ public class WebMockTest {
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
         when(employeeService.greetings()).thenReturn("Hello there");
-        this.mockMvc.perform(get("/api/employee/")).andDo(print()).andExpect(status().isOk()).
+        this.mockMvc.perform(get("/api/employee/")).andExpect(status().isOk()).
                 andExpect(content().string(containsString("Hello there")));
     }
 
@@ -75,12 +77,12 @@ public class WebMockTest {
     public void checkDeleteEmployeeById() throws Exception{
         Integer test_id = 42;
         Integer wrong_test_id = 43;
-        when(employeeService.deleteEmployeeById(42)).thenReturn(true);
+        doReturn(true).when(employeeService).deleteEmployeeById(test_id);
         this.mockMvc.perform(delete("/api/employee/" + test_id.toString())).
                 andExpect(status().isOk()).
                 andExpect(content().string("Employee record deleted correctly.\n"));
 
-        when(employeeService.deleteEmployeeById(43)).thenReturn(false);
+        doReturn(false).when(employeeService).deleteEmployeeById(wrong_test_id);
         this.mockMvc.perform(delete("/api/employee/" + wrong_test_id.toString())).
                 andExpect(status().isBadRequest()).
                 andExpect(content().string("The select id does not exist in the database.\n"));
@@ -88,16 +90,20 @@ public class WebMockTest {
 
     @Test
     public void checkUpdateEmployeeById() throws Exception{
-        Integer test_id = 42;
-        Integer wrong_test_id = 43;
+        Integer test_id = 12;
+        Integer wrong_test_id = 13;
         Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "nuovaemail34@gmail.com");
-        when(employeeService.updateEmployeeById(test_id, upd_employee)).thenReturn(upd_employee);
-        this.mockMvc.perform(put("/api/employee/" + test_id.toString())).
+        doReturn(upd_employee).when(employeeService).updateEmployeeById(test_id, upd_employee);
+        this.mockMvc.perform(put("/api/employee/" + test_id.toString()).
+                contentType(MediaType.APPLICATION_JSON).
+                content(objectMapper.writeValueAsString(upd_employee))).
                 andExpect(status().isOk()).
                 andExpect(content().json(objectMapper.writeValueAsString(upd_employee)));
 
-        when(employeeService.updateEmployeeById(wrong_test_id, upd_employee)).thenReturn(null);
-        this.mockMvc.perform(put("/api/employee/" + wrong_test_id.toString())).
+        doReturn(null).when(employeeService).updateEmployeeById(wrong_test_id, upd_employee);
+        this.mockMvc.perform(put("/api/employee/" + wrong_test_id.toString()).
+                contentType(MediaType.APPLICATION_JSON).
+                content(objectMapper.writeValueAsString(upd_employee))).
                 andExpect(status().isBadRequest()).
                 andExpect(content().string(""));
     }

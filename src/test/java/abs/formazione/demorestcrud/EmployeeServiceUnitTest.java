@@ -10,17 +10,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceUnitTest {
 
     @Mock
     private EmployeeRepository repository;
-    //Without the annotation, it would be equivalent to:
-    //private EmployeeRepository repository = Mockito.mock(EmployeeRepository.class);
 
     private EmployeeService employeeService;
     private List<Employee> fake_list;
@@ -59,26 +58,34 @@ public class EmployeeServiceUnitTest {
 
     @Test
     void deleteEmployeeById() {
-        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
-        when(repository.existsById(42)).thenReturn(true);
-        assertEquals(employeeService.deleteEmployeeById(42), true);
+        Integer test_id = 42;
+        Integer wrong_test_id = 43;
+        doReturn(true).when(repository).existsById(test_id);
 
-        when(repository.existsById(43)).thenReturn(false);
-        assertEquals(employeeService.deleteEmployeeById(43), false);
+        Employee new_employee = new Employee(test_id, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        assertEquals(employeeService.deleteEmployeeById(test_id), true);
+
+
+        doReturn(false).when(repository).existsById(wrong_test_id);
+        assertEquals(employeeService.deleteEmployeeById(wrong_test_id), false);
     }
+
 
     @Test
     void updateEmployeeById() {
-        Employee upd_employee = new Employee(42, "Sergio", "Rossi", "emailnuova34@gmail.com");
-        when(repository.existsById(42)).thenReturn(true);
-        when(repository.save(upd_employee)).thenReturn(upd_employee);
-        assertEquals(employeeService.updateEmployeeById(42, upd_employee), upd_employee);
+        Integer test_id = 42;
+        Integer wrong_test_id = 43;
+        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "emailnuova34@gmail.com");
+        doReturn(true).when(repository).existsById(test_id);
+        doReturn(upd_employee).when(repository).save(upd_employee);
+        assertEquals(employeeService.updateEmployeeById(test_id, upd_employee), upd_employee);
 
-        when(repository.existsById(42)).thenReturn(false);
-        assertEquals(employeeService.updateEmployeeById(42, upd_employee), null);
+        doReturn(false).when(repository).existsById(test_id);
+        assertEquals(employeeService.updateEmployeeById(test_id, upd_employee), null);
 
-        when(repository.existsById(42)).thenReturn(true);
-        assertEquals(employeeService.updateEmployeeById(43, upd_employee), null);
+        doReturn(true).when(repository).existsById(test_id);
+        upd_employee.setId(wrong_test_id);
+        assertEquals(employeeService.updateEmployeeById(test_id, upd_employee), null);
     }
 
 }
