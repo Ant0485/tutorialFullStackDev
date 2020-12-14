@@ -17,18 +17,19 @@ This class will be used together with the @AuthenticationPrincipal annotation an
 of a OAuth2UserService.
 
  */
-public class EmployeePrincipal implements OAuth2User, UserDetails {
+public class EmployeePrincipal implements OAuth2User {
 
     @Getter
     private Employee employee;
+
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
-
+    
     public EmployeePrincipal(Employee employee){
         this.employee = employee;
-
-        /* Depending on the role defined at the creation of the employee, we convert the String
-        *  representing the role to a proper GrantedAuthority object.
+        
+        /* Depending on the role defined at the creation of the employee, we convert the String 
+        *  representing the role to a proper GrantedAuthority object. 
         */
         Set<Role> roles = this.employee.getRoles();
         List<SimpleGrantedAuthority> authorities_list = new ArrayList<>();
@@ -37,7 +38,7 @@ public class EmployeePrincipal implements OAuth2User, UserDetails {
         }
         this.authorities = authorities_list;
     }
-
+    
     public EmployeePrincipal(Employee employee, Map<String, Object> attributes){
         this(employee);
         this.attributes = attributes;
@@ -45,47 +46,17 @@ public class EmployeePrincipal implements OAuth2User, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return this.authorities;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return employee.getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return employee.isEnabled();
-    }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes;
+        return this.attributes;
     }
-
 
     @Override
     public String getName() {
-        return String.valueOf(employee.getId());
+        return this.employee.toString();
     }
 }
