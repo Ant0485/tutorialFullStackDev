@@ -2,6 +2,7 @@ package abs.formazione.demorestcrud.security;
 
 import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.entity.Role;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ of a OAuth2UserService.
  */
 public class EmployeePrincipal implements OAuth2User, UserDetails {
 
+    @Getter
     private Employee employee;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
@@ -84,6 +86,6 @@ public class EmployeePrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getName() {
-        return String.valueOf(employee.employee_id);
+        return String.valueOf(employee.getId());
     }
 }

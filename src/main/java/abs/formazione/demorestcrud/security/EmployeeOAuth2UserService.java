@@ -2,6 +2,9 @@ package abs.formazione.demorestcrud.security;
 
 import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.repository.EmployeeRepository;
+import abs.formazione.demorestcrud.security.EmployeePrincipal;
+import abs.formazione.demorestcrud.security.GoogleOAuth2UserInfo;
+import abs.formazione.demorestcrud.security.OAuth2AuthenticationProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

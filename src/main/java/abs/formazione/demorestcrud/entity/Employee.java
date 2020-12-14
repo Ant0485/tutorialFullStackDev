@@ -53,5 +53,6 @@ public class Employee {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "enabled")
     private boolean isEnabled;
 }

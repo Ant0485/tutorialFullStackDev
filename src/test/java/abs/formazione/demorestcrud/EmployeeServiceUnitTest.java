@@ -1,6 +1,7 @@
 package abs.formazione.demorestcrud;
 
 import abs.formazione.demorestcrud.entity.Employee;
+import abs.formazione.demorestcrud.entity.Role;
 import abs.formazione.demorestcrud.repository.EmployeeRepository;
 import abs.formazione.demorestcrud.services.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
@@ -23,6 +27,7 @@ public class EmployeeServiceUnitTest {
 
     private EmployeeService employeeService;
     private List<Employee> fake_list;
+    private Set<Role> roles;
 
     //Setting up before each test a new service with a mock repository
     // and a fake list of entities from the DB.
@@ -30,8 +35,10 @@ public class EmployeeServiceUnitTest {
     void initUseCase() {
         employeeService = new EmployeeService(repository);
         fake_list = new ArrayList<Employee>();
-        fake_list.add(new Employee(1, "Paolo", "Rossi", "fakeemail@gmail.com"));
-        fake_list.add(new Employee(2, "Giacomo", "Bianchi", "fakeemail2@gmail.com"));
+        roles = new HashSet<>();
+        roles.add(new Role(1, "ROLE_USER"));
+        fake_list.add(new Employee(1, "Paolo", "Rossi", "fakeemail@gmail.com", roles, true));
+        fake_list.add(new Employee(2, "Giacomo", "Bianchi", "fakeemail2@gmail.com", roles, true));
     }
 
 
@@ -51,7 +58,7 @@ public class EmployeeServiceUnitTest {
 
     @Test
     void postNewEmployee() {
-        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        Employee new_employee = fake_list.get(0);
         when(repository.save(new_employee)).thenReturn(new_employee);
         assertEquals(employeeService.postNewEmployee(new_employee), new_employee);
     }
@@ -62,7 +69,7 @@ public class EmployeeServiceUnitTest {
         Integer wrong_test_id = 43;
         doReturn(true).when(repository).existsById(test_id);
 
-        Employee new_employee = new Employee(test_id, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        Employee new_employee = new Employee(test_id, "Sergio", "Rossi", "emailfalsa34@gmail.com", roles, true);
         assertEquals(employeeService.deleteEmployeeById(test_id), true);
 
 
@@ -75,7 +82,7 @@ public class EmployeeServiceUnitTest {
     void updateEmployeeById() {
         Integer test_id = 42;
         Integer wrong_test_id = 43;
-        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "emailnuova34@gmail.com");
+        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "emailnuova34@gmail.com", roles, true);
         doReturn(true).when(repository).existsById(test_id);
         doReturn(upd_employee).when(repository).save(upd_employee);
         assertEquals(employeeService.updateEmployeeById(test_id, upd_employee), upd_employee);

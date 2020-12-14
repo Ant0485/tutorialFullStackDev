@@ -13,15 +13,20 @@ import static org.mockito.Mockito.when;
 
 import abs.formazione.demorestcrud.api.EmployeeApiController;
 import abs.formazione.demorestcrud.entity.Employee;
+import abs.formazione.demorestcrud.entity.Role;
 import abs.formazione.demorestcrud.services.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /*
 This test only verifies the correct interaction of the Controller class with the HTTP layer.
@@ -41,6 +46,13 @@ public class WebMockTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private Set<Role> roles = new HashSet<>();
+
+    @BeforeEach
+    private void testSetUp() {
+        roles.add(new Role(1, "ROLE_USER"));
+    }
+
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
         when(employeeService.greetings()).thenReturn("Hello there");
@@ -52,7 +64,7 @@ public class WebMockTest {
     public void checkSearchById() throws Exception {
         Integer test_id = 42;
         Integer wrong_test_id = 43;
-        Employee test_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        Employee test_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com", roles, true);
         when(employeeService.getEmployeeById(test_id)).thenReturn(java.util.Optional.of(test_employee));
         this.mockMvc.perform(get("/api/employee/" + test_id.toString())).andDo(print()).andExpect(status().isOk()).
                 andExpect(content().json(objectMapper.writeValueAsString(test_employee)));
@@ -64,7 +76,7 @@ public class WebMockTest {
 
     @Test
     public void checkReturnOnPostEmployee() throws Exception {
-        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com");
+        Employee new_employee = new Employee(42, "Sergio", "Rossi", "emailfalsa34@gmail.com", roles, true);
         when(employeeService.postNewEmployee(new_employee)).thenReturn(new_employee);
         this.mockMvc.perform(post("/api/employee/insertNewEmployee").
                 contentType(MediaType.APPLICATION_JSON).
@@ -92,7 +104,7 @@ public class WebMockTest {
     public void checkUpdateEmployeeById() throws Exception{
         Integer test_id = 12;
         Integer wrong_test_id = 13;
-        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "nuovaemail34@gmail.com");
+        Employee upd_employee = new Employee(test_id, "Sergio", "Rossi", "nuovaemail34@gmail.com", roles, true);
         doReturn(upd_employee).when(employeeService).updateEmployeeById(test_id, upd_employee);
         this.mockMvc.perform(put("/api/employee/" + test_id.toString()).
                 contentType(MediaType.APPLICATION_JSON).

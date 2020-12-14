@@ -1,12 +1,15 @@
 package abs.formazione.demorestcrud.api;
 
 import abs.formazione.demorestcrud.entity.Employee;
+import abs.formazione.demorestcrud.security.EmployeePrincipal;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,9 +38,16 @@ public class EmployeeApiController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable Integer id){
+    public Optional<Employee> getEmployeeById(
+            @AuthenticationPrincipal EmployeePrincipal employeePrincipal, @PathVariable Integer id){
         LOGGER.info("getEmployeeById in API");
-        return service.getEmployeeById(id);
+        if (employeePrincipal.getEmployee().getId() == id){
+            return service.getEmployeeById(id);
+        } else {
+            return Optional.empty();
+        }
+
+
     }
 
     @GetMapping("/getAll")
