@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CustomUserDetailsService /*implements UserDetailsService*/ {
-/*
+public class CustomUserDetailsService implements UserDetailsService {
+
     @Autowired
     private EmployeeRepository repository;
 
@@ -22,5 +22,5 @@ public class CustomUserDetailsService /*implements UserDetailsService*/ {
         if (employee.isEmpty())
             throw new UsernameNotFoundException("Could not find in the database the employee with the specified email.");
         return new EmployeePrincipal(employee.get());
-    }*/
+    }
 }

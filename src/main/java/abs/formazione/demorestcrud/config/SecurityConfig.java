@@ -21,15 +21,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private EmployeeOAuth2UserService customOAuth2Service;
 
-   // @Autowired
-   // private CustomUserDetailsService customUserDetailsService;
+   @Autowired
+   private CustomUserDetailsService customUserDetailsService;
 
-    /*
+
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(customUserDetailsService);
-    }*/
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,15 +40,18 @@ public class EmployeeApiController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeById(
-            @AuthenticationPrincipal EmployeePrincipal employeePrincipal, @PathVariable Integer id){
+    public Optional<Employee> getEmployeeById(@PathVariable Integer id){
         LOGGER.info("getEmployeeById in API");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+        EmployeePrincipal employeePrincipal = (EmployeePrincipal) principal;
+
         if (employeePrincipal.getEmployee().getId() == id){
             return service.getEmployeeById(id);
         } else {
             return Optional.empty();
         }
-
 
     }
 

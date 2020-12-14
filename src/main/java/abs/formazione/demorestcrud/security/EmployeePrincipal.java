@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.*;
@@ -17,7 +18,7 @@ This class will be used together with the @AuthenticationPrincipal annotation an
 of a OAuth2UserService.
 
  */
-public class EmployeePrincipal implements OAuth2User {
+public class EmployeePrincipal implements OAuth2User, UserDetails /*, Oidcuser*/{
 
     @Getter
     private Employee employee;
@@ -49,14 +50,45 @@ public class EmployeePrincipal implements OAuth2User {
         return this.authorities;
     }
 
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.employee.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.employee.isEnabled();
+    }
 
     @Override
     public Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
+
+
     @Override
     public String getName() {
-        return this.employee.toString();
+        return null;
     }
 }
