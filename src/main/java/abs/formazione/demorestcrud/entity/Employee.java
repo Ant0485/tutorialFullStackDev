@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -15,7 +17,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "employee_id")
     @Getter
     @Setter
     public Integer id;
@@ -34,4 +36,22 @@ public class Employee {
     @Getter
     @Setter
     public String email;
+
+    /*
+    Creation of a new attribute that defines a ManyToMany relationship with the Role table.
+    On the dataset, this property would be reflected by a connection table defined of couples
+    of foreign keys from the employee and the roles table.
+    A user can have different roles, not just one.
+     */
+    @Getter
+    @Setter
+    @ManyToMany
+    @JoinTable(
+            name = "employee_roles",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    private boolean isEnabled;
 }
