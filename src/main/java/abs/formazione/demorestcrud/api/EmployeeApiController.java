@@ -4,6 +4,10 @@ import abs.formazione.demorestcrud.entity.Employee;
 import abs.formazione.demorestcrud.security.EmployeePrincipal;
 import abs.formazione.demorestcrud.services.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-
+@Api(value = "EmployeeApiController")
 @RestController
 @RequestMapping("/api/employee")
 public class EmployeeApiController {
@@ -33,12 +37,24 @@ public class EmployeeApiController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Get Greetings in the System ", response = Iterable.class, tags = "Greetings")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"),
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping("/")
     public ResponseEntity<String> greetings(){
         LOGGER.info("Greetings in home");
         return new ResponseEntity<>(service.greetings(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get Employee in the System ", response = Iterable.class, tags = "GetEmployeeById")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"),
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping("/{id}")
     public Optional<Employee> getEmployeeById(@PathVariable Integer id){
         LOGGER.info("getEmployeeById in API");
@@ -55,6 +71,12 @@ public class EmployeeApiController {
 
     }
 
+    @ApiOperation(value = "Get List of Employees in the System ", response = Iterable.class, tags = "getAll")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"),
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping("/getAll")
     public List<Employee> getAll() {
         LOGGER.info("getAll in API");
