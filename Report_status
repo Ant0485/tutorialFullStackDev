@@ -1,0 +1,33 @@
+﻿Status dell’applicazione della gestione delle presenze ABS (al 15/12/2020):
+
+
+Applicazione web REST, basata su un back-end costituito principalmente da Java Spring Boot.
+
+
+Il database di partenza dell’applicazione è un database PostgreSQL, al momento strutturato in tre tabelle (realizzate e gestite tramite DBeaver in un ecosistema Linux): una tabella employee, che definisce le informazioni relative a ciascun impiegato, un tabella roles, che definisce i possibili ruoli in merito alla gestione delle risorse dell’applicazione (Admin e User), e una tabella join per creare una relazione ManyToMany tra le due.
+
+
+Il database PostgreSQL viene riflesso in Java Spring tramite Spring JPA e la definizione di due classe di Entity: è stata creata una repository JPA e sono stati definiti (sfruttando l’auto-definizione delle query su Spring) alcuni metodi per la ricerca e l’accesso delle entity nel database.
+
+
+A contatto con la repository è presente un service che risponde alle richieste del controller, che espone i diversi endpoint a cui l’utente può accedere per utilizzare le funzionalità dell’applicazione. Abbiamo quindi realizzato una struttura basata su (frontend) -> controller -> service -> repository -> database PostgreSQL.
+
+
+Al momento, non è ancora stato realizzato un front-end: si pensava all’utilizzo di Angular o React, sfruttando in ogni caso una libreria TypeScript per realizzare l’applicazione in formato Single Page.
+
+
+Non sono ancora stati definiti degli use case veri e propri (così come la struttura finale in termini di indirizzi dell’applicazione).
+
+
+In termini di sicurezza e di roles, è stato implementato un login social OAuth2 tramite Google: confrontando la mail dell’account con cui si è effettuato l’accesso e la mail presente a livello di database, è possibile limitare l’accesso all’utente verso esclusivamente le risorse che gli appartengono. Al momento, non abbiamo definito un salvataggio di password sul database, potremmo basarci esclusivamente sul login di Google. Bisogna però ancora verificare la natura stateless del procedimento.
+Definendo una tabella di roles, inoltre, è possibile limitare l’accesso ad alcune funzionalità (come la creazione di nuove entity, ad esempio), soltanto ad utenti admin (idealmente, la segreteria).
+
+
+Sono stati creati anche dei test: al momento, sono stati utilizzati JUnit e Mockito per testare rispettivamente il lato service e il lato controller isolatamente. 
+Mancano ancora testing di integrazione, test di JPA, e test per l’implementazione della security.
+
+
+Tra gli strumenti utilizzati in fase di sviluppo troviamo IntelliJ, Postman, librerie di Java quali tomcat e Maven per la gestione delle dependency.
+
+
+Utilizzato versioning control con git, repo presente a https://github.com/Ant0485/tutorialFullStackDev.
