@@ -9,6 +9,7 @@ This class is used to fetch the authenticated user's details from the Google OAu
 While the provider usually returns them in JSON form (with a series of specific field that may vary for
 another provider), Spring Security converts them already to a generic Map<String, Object>.
 Google JSON -> https://developers.google.com/identity/protocols/oauth2/openid-connect
+Warning: Setup properly the scope of the OAuth2 login in the applciation.properties, or the protocol OpenId will be used.
  */
 public class GoogleOAuth2UserInfo {
 

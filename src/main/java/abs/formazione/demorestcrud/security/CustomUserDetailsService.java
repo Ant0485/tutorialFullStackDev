@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+// Still not sure if this class is actually needed in a OAuth2 context
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired

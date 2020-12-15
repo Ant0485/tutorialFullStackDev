@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-//@Repository
+//@Repository (this annotation should be included automatically)
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Optional<Employee> findById(Integer Id);

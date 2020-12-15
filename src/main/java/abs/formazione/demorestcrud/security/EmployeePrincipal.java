@@ -6,7 +6,6 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.*;
@@ -15,10 +14,10 @@ import java.util.*;
 This class represents an authenticated Spring Security principal. By implementing the OAuth2User
 and the UserDetails interfaces, it will be to provide the details of the authenticated user.
 This class will be used together with the @AuthenticationPrincipal annotation and the implementation
-of a OAuth2UserService.
-
+of a OAuth2UserService. This class basically extends the Employee entity and allow to support the
+OAuth2User and UserDetails interfaces.
  */
-public class EmployeePrincipal implements OAuth2User, UserDetails /*, Oidcuser*/{
+public class EmployeePrincipal implements OAuth2User, UserDetails {
 
     @Getter
     private Employee employee;
@@ -67,7 +66,7 @@ public class EmployeePrincipal implements OAuth2User, UserDetails /*, Oidcuser*/
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
