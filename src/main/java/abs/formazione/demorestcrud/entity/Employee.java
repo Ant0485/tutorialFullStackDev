@@ -18,7 +18,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "employee_id")
+    @Column(name = "id")
     @Getter
     @Setter
     @ApiModelProperty(notes = "Id of the Employee",name="id",required=true,value="test id")

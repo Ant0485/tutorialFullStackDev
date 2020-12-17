@@ -43,7 +43,7 @@ public class EmployeeApiController {
             @ApiResponse(code = 401, message = "not authorized!"),
             @ApiResponse(code = 403, message = "forbidden!!!"),
             @ApiResponse(code = 404, message = "not found!!!") })
-    @GetMapping("/")
+    @GetMapping("/home")
     public ResponseEntity<String> greetings(){
         LOGGER.info("Greetings in home");
         return new ResponseEntity<>(service.greetings(), HttpStatus.OK);
