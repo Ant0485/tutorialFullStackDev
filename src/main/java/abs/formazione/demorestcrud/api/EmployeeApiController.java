@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Api(value = "EmployeeApiController")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/employee")
 public class EmployeeApiController {
@@ -82,6 +83,13 @@ public class EmployeeApiController {
         LOGGER.info("getAll in API");
         return service.getEmployeesDefault();
     }
+
+    @GetMapping("/getByEmail/{email}")
+    public Optional<Employee> getEmployeeByEmail(@PathVariable String email){
+        LOGGER.info("getByEmail in API");
+        return service.getEmployeeByEmail(email);
+    }
+
 
     @GetMapping("/getByName/{name}")
     public List<Employee> getEmployeeByName(@PathVariable String name){

@@ -34,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/employee/home").permitAll()
+                //TODO: getALl and getEmployee should not be permitAll at the end, just for now to test it with Angular
+                .antMatchers("/api/employee/home", "/api/employee/getAll", "/api/employee/getByEmail/{email}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/employee/insertNewEmployee").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

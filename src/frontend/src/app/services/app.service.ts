@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,16 @@ export class AppService {
   }
 
   public social_login() {
-    this.http.get("http://localhost:8080/oauth2/authorization/google");
+    return this.http.get("http://localhost:8080/oauth2/authorization/google");
+  }
+
+  public getAll(): Observable<any> {
+    return this.http.get(this.apiUrl + "/getAll");
+  }
+
+  //TODO: implementation of method for search by name and last name
+  public getEmployeeByEmail(email): Observable<any> {
+    return this.http.get(this.apiUrl + "/getByEmail/" + email)
   }
 
 

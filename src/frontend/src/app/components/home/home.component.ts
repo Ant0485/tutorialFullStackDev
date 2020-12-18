@@ -9,12 +9,13 @@ import {AppService} from '../../services/app.service';
 })
 export class HomeComponent {
 
-  constructor(private appService: AppService,
-              private router: Router) { }
+  welcome_message: string;
 
-  goToLogin() {
-      this.router.navigate(['/login']);
-    }
+  constructor(private appService: AppService,
+              private router: Router) {
+      this.welcome_message = "Benvenuto in gestione presenze!"}
+
+
 
 
 }

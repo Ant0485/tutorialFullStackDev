@@ -31,3 +31,10 @@ Tra gli strumenti utilizzati in fase di sviluppo troviamo IntelliJ, Postman, lib
 
 
 Utilizzato versioning control con git, repo presente a https://github.com/Ant0485/tutorialFullStackDev.
+
+Aggiornamento 18/12
+Sono presenti sul drive aziendale delle documentazioni riguardanti al vecchio prototipo del software presenze,
+realizzato da Mazzucchelli.
+
+La parte front-end si è basata sull'utilizzo del modulo Router di Angular, con alcuni componenti già definiti (quello
+del login non riesce al momento a collegarsi al localhost del backend Spring).

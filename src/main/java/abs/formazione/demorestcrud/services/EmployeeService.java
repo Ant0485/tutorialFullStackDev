@@ -34,6 +34,11 @@ public class EmployeeService {
         return repository.findById(id);
     }
 
+    public Optional<Employee> getEmployeeByEmail(String email){
+        LOGGER.info("getEmployeeByEmailCalled");
+        return repository.findByEmail(email);
+    }
+
     public List<Employee> getEmployeeByName(String name){
         LOGGER.info("getEmployeesByNameCalled");
         return repository.findByFirstName(name);

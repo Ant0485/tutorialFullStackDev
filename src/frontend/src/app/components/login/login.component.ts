@@ -10,7 +10,7 @@ export class LoginComponent {
 
   constructor(private app_service: AppService) { }
 
-  social_login() {
+  public social_login() {
     this.app_service.social_login();
   }
 
