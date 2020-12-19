@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -47,11 +48,11 @@ public class EmployeeOAuth2UserService extends DefaultOAuth2UserService {
                 throw new OAuth2AuthenticationProcessingException("Email not found from the Google OAuth2 provider.");
             }
 
-            Optional<Employee> employeeOptional = repository.findByEmail(oAuth2_email);
+            List<Employee> employeeOptional = repository.findByEmail(oAuth2_email);
             Employee employee;
             // Checking if a user with the specified email is present in the database.
-            if (employeeOptional.isPresent()) {
-                employee = employeeOptional.get();
+            if (!employeeOptional.isEmpty()) {
+                employee = employeeOptional.get(0);
                 // A custom extension of the Employee class implementing both OAuth2user and UserDetails is returned.
                 return new EmployeePrincipal(employee, oAuth2User.getAttributes());
             } else {

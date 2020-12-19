@@ -85,7 +85,7 @@ public class EmployeeApiController {
     }
 
     @GetMapping("/getByEmail/{email}")
-    public Optional<Employee> getEmployeeByEmail(@PathVariable String email){
+    public List<Employee> getEmployeeByEmail(@PathVariable String email){
         LOGGER.info("getByEmail in API");
         return service.getEmployeeByEmail(email);
     }
