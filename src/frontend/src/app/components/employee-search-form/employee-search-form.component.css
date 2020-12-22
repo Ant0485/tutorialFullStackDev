@@ -1,0 +1,13 @@
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #fff;
+  background-color: rgba(69, 195, 221, .15);
+  border: 1px solid #4682b4;
+  border: 1px solid rgba(19, 108, 209, .2);
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}

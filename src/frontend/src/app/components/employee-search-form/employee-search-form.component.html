@@ -1,40 +1,44 @@
-<p>
-<div class="col-md-6">
-  <h4>Employee List</h4>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <title>Search employee</title>
 
-    <div>
-      <label for="name">
-        Name
-      </label>
-      <input id="name" type="text" formControlName="name">
-    </div>
+  <!-- Custom styles for this template -->
+  <link href="employee-search-form.component.css" rel="stylesheet">
+</head>
 
-    <div>
-      <label for="last_name">
-        Last Name
-      </label>
-      <input id="last_name" type="text" formControlName="last_name">
-    </div>
+<body>
+<div class="container">
+  <h4>Ricerca Impiegati</h4>
 
-    <div>
-      <label for="email">
-        Email
-      </label>
-      <input id="email" type="text" formControlName="email">
-    </div>
+  <form class="form-signin" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
 
-    <button class="button" type="submit">Search</button>
+      <label for="name" class="sr-only"> Nome </label>
+      <input id="name" type="text" class="form-control" placeholder = "Nome" formControlName="name" required autofocus>
 
+      <label for="last_name" class="sr-only"> Cognome </label>
+      <input id="last_name" type="text" class="form-control" placeholder = "Cognome" formControlName="last_name" required autofocus>
+
+      <label for="email" class="sr-only"> Email </label>
+      <input id="email" type="text" class="form-control" placeholder = "Email" formControlName="email" required autofocus>
+    <button type="submit" class="btn btn-primary"> Search </button>
   </form>
+
 
   <ul class="list-group">
     <li
       class="list-group-item"
       *ngFor="let employee of employees"
     >
-      {{ employee.email }} | {{ employee.lastName}} | {{ employee.firstName }}
+      <div class="row">
+        <div class="col-md-4"> {{ employee.email }}  </div>
+        <div class="col-md-2"> {{ employee.lastName}} </div>
+        <div class="col-md-2"> {{ employee.firstName }} </div>
+      </div>
     </li>
   </ul>
 </div>
+</body>
