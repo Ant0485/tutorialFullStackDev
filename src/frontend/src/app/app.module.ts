@@ -8,14 +8,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppService } from './services/app.service';
-import { EmployeeSearchFormComponent } from './components/employee-search-form/employee-search-form.component'
+import { EmployeeSearchFormComponent } from './components/employee-search-form/employee-search-form.component';
+import { EmployeesTableComponent } from './components/employees-table/employees-table.component'
+import { TableSortableHeader } from './components/employees-table/employees-table.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    EmployeeSearchFormComponent
+    EmployeeSearchFormComponent,
+    EmployeesTableComponent,
+    TableSortableHeader,
+    EmployeesTableComponent
   ],
   imports: [
     AppRoutingModule,

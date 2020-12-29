@@ -38,3 +38,13 @@ realizzato da Mazzucchelli.
 
 La parte front-end si è basata sull'utilizzo del modulo Router di Angular, con alcuni componenti già definiti (quello
 del login non riesce al momento a collegarsi al localhost del backend Spring).
+
+Aggiornamento 29/12
+Per questione di compatibilità con libreria ng-bootstrap, downgrade della versione Angular da 11 a 9.13.
+Creata tabella sortable in fase di presentazione/ricerca di tutti gli impiegati.
+Per passara alla versione Angular 9.13 e aggiungere la libreria nella cartella del progetto:
+npm uninstall @angular/cli -> disinstallazione versione locale
+npm clean cache --force
+npm install @angular/cli@9.1.13 -> installazione nuova versione locale (quella globale dovrebbe rimanere la 11)
+npm install --save bootstrap@4.4.1
+ng add @ng-bootstrap/ng-bootstrap

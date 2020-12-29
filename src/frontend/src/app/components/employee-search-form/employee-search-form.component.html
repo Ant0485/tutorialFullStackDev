@@ -27,26 +27,7 @@
     <button type="submit" class="btn btn-primary"> Search </button>
   </form>
 
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col" sortable="nome" (sort)="onSort($event)">Nome</th>
-      <th scope="col" sortable="cognome" (sort)="onSort($event)">Cognome</th>
-      <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
-      <th scope="col" sortable="email" (sort)="onSort($event)">Abilitato</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let employee of employees">
-      <th scope="row">{{ employee.id }}</th>
-      <td> {{employee.firstName}} </td>
-      <td> {{employee.lastName}} </td>
-      <td> {{employee.email}} </td>
-      <td> {{employee.enabled}} </td>
-    </tr>
-    </tbody>
-  </table>
+  <app-employees-table [employees]="employees"> </app-employees-table>
 
 
 

@@ -1,0 +1,20 @@
+<table class="table table-striped" >
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col" sortable="firstName" (sort)="onSort($event)">Nome</th>
+    <th scope="col" sortable="lastName" (sort)="onSort($event)">Cognome</th>
+    <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+    <th scope="col" sortable="enabled" (sort)="onSort($event)">Abilitato</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of employees">
+    <th scope="row">{{ employee.id }}</th>
+    <th scope="row">{{ employee.firstName}}</th>
+    <th scope="row">{{ employee.lastName }}</th>
+    <th scope="row">{{ employee.email }}</th>
+    <th scope="row">{{ employee.enabled}}</th>
+  </tr>
+  </tbody>
+</table>
